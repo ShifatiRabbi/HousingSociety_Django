@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2 class="text-center bg-primary">Confirm playground Delete</h2>
+<div class="card-body" >
+      <div class="row justify-content-md-center ">
+        <div class="col-md-auto border border-primary" style="padding: 20px 50px ">
+          
+  <p>Are you sure you want to delete the following playground?</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Capacity</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ playground.name }}</td>
+        <td>{{ playground.capacity }}</td>
+        <td>{{ playground.address }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <form action="{% url 'playground_delete' playground.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirm">
+    <a href="{% url 'playground_list' %}">Cancel</a>
+  </form>
+  </div>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <p class="messages alert alert-success" >{{ message }}</p>
+                {% endif %}
+                {% if message.tags == 'error' %}
+                    <p class="messages alert alert-danger" >{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+      
+      </div>
+    </div>
+{% endblock %}

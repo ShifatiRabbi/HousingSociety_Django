@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2 class="text-center bg-primary">Confirm Booking Delete</h2>
+<div class="card-body" >
+      <div class="row justify-content-md-center ">
+        <div class="col-md-auto border border-primary" style="padding: 20px 50px ">
+          
+  <p>Are you sure you want to delete the following Booking?</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Booking_by</th>
+        <th>communitycenter_name</th>
+        <th>date</th>
+        <th>payment_status</th>
+        <th>booking_status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ booking.user }}</td>
+        <td>{{ booking.community_center.name }}</td>
+        <td>{{ booking.date }}</td>
+        <td>{{ booking.payment_status }}</td>
+        <td>{{ booking.booking_status }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <form action="{% url 'booking_delete' booking.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirm">
+    <a href="{% url 'booking_list' %}">Cancel</a>
+  </form>
+  </div>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <p class="messages alert alert-success" >{{ message }}</p>
+                {% endif %}
+                {% if message.tags == 'error' %}
+                    <p class="messages alert alert-danger" >{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+      
+      </div>
+    </div>
+{% endblock %}

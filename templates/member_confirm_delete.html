@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2 class="text-center bg-primary">Confirm Member Delete</h2>
+<div class="card-body" >
+      <div class="row justify-content-md-center ">
+        <div class="col-md-auto border border-primary" style="padding: 20px 50px ">
+          
+  <p>Are you sure you want to delete the following member?</p>
+  <table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ member.first_name }}</td>
+        <td>{{ member.last_name }}</td>
+        <td>{{ member.email }}</td>
+        <td>{{ member.phone }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <form action="{% url 'member_delete' member.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirm">
+    <a href="{% url 'member_list' %}">Cancel</a>
+  </form>
+  </div>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <p class="messages alert alert-success" >{{ message }}</p>
+                {% endif %}
+                {% if message.tags == 'error' %}
+                    <p class="messages alert alert-danger" >{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+      
+      </div>
+    </div>
+{% endblock %}

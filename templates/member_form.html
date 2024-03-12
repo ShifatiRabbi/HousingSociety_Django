@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+{% load crispy_forms_tags %}         
+
+<!--Register--> 
+<div class="container py-5">
+	<h1 class="text-center bg-primary">Update</h1>
+	<div class="card-body" >
+      <div class="row justify-content-md-center ">
+        <div class="col-md-auto border border-primary" style="padding: 20px 50px ">
+          
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+                  <input type="text" class="form-control" id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.name }}" value="{{ form.first_name.value }}">
+                </div>
+                <div class="form-group">
+                  <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+                  <input type="text" class="form-control" id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.name }}" value="{{ form.last_name.value }}">
+                </div>
+                <div class="form-group">
+                  <label for="{{ form.email.id_for_label }}">Email:</label>
+                  <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" value="{{ form.email.value }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+              </form>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <p class="messages alert alert-success" >{{ message }}</p>
+            {% endif %}
+            {% if message.tags == 'error' %}
+                <p class="messages alert alert-danger" >{{ message }}</p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+	</div>
+      
+      </div>
+    </div>
+</div>
+
+{% endblock %}

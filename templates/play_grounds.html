@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-center bg-primary">Play Grounds</h1>
+<div class="card-body" >
+      <div class="row justify-content-md-center ">
+        <div class="col-md-auto border border-primary" style="padding: 20px 50px ">
+          
+  <ul>
+    {% for ground in grounds %}
+      <li>{{ ground.name }} - <a href="{% url 'bookingground_create' ground.pk %}">Book this Play Ground</a></li>
+    {% empty %}
+      <li>No Play Grounds available.</li>
+    {% endfor %}
+  </ul>
+  </div>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <p class="messages alert alert-success" >{{ message }}</p>
+                {% endif %}
+                {% if message.tags == 'error' %}
+                    <p class="messages alert alert-danger" >{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+      
+      </div>
+    </div>
+{% endblock %}
